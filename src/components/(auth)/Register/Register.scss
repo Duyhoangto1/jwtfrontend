@@ -1,0 +1,101 @@
+// Custom styles for Register page (không cần thay đổi nhiều)
+.fb-login-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+  background-color: #ffffff;
+
+  &.dark {
+    background-color: #1a1a1a;
+  }
+}
+
+.card {
+  background: #ffffff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &.dark {
+    background: #2d2d2d;
+  }
+}
+
+.form-control {
+  padding: 14px 16px;
+  font-size: 17px;
+  border: 1px solid #dddfe2;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.3s ease,
+    color 0.3s ease;
+
+  &:focus {
+    border-color: #1877f2;
+  }
+
+  &.dark {
+    background: #3a3a3a;
+    color: #e4e6eb;
+    border-color: #3e4042;
+
+    &:focus {
+      border-color: #4599ff;
+    }
+  }
+}
+
+.btn-primary {
+  background: #1877f2;
+  border-color: #1877f2;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #166fe5;
+    border-color: #166fe5;
+  }
+
+  &.dark {
+    background: #4599ff;
+    border-color: #4599ff;
+
+    &:hover {
+      background: #1877f2;
+      border-color: #1877f2;
+    }
+  }
+}
+
+.text-muted {
+  color: #6c757d;
+  transition: color 0.3s ease;
+
+  &.dark {
+    color: #adb5bd;
+  }
+}
+
+@media (max-width: 700px) {
+  .fb-login-main {
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    min-height: 100vh;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px;
+  }
+
+  .form-control {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+}
