@@ -54,6 +54,9 @@ function Nav() {
         <NavLink to="/project" activeClassName="active">
           Project
         </NavLink>
+        <NavLink to="/roles" activeClassName="active">
+          Roles
+        </NavLink>
       </div>
       <div className="nav-right">
         <button

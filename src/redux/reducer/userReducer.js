@@ -20,10 +20,12 @@ function userReducer(state = initialState, action) {
       // Lưu vào localStorage
       localStorage.setItem("token", action.data.token);
       localStorage.setItem("email", action.data.user.email || "");
+      localStorage.setItem("id", action.data.user.id || "");
       return {
         ...state,
         account: {
           email: action.data.user.email || "",
+          id: action.data.user.id || "",
           isAuthenticated: true,
           token: action.data.token,
         },

@@ -70,6 +70,14 @@ const Users = () => {
     }
     fetchUsers();
     fetchGroups(); // Gọi API lấy nhóm khi component mount
+    let c = document.cookie.split(";").reduce((ac, cv) => {
+      const [key, value] = cv.split("=").map((item) => item.trim());
+      if (key && value) {
+        ac[key] = value;
+      }
+      return ac;
+    }, {}); // Giá trị khởi tạo là object rỗng
+    console.log(c);
   }, [user]);
 
   const columns = [

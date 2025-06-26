@@ -16,7 +16,7 @@ export const loginUserRedux = (email, password) => {
       if (response && response.EC === 0) {
         const userData = {
           isAuthenticated: true,
-          token: response.data?.token || "fake token",
+          token: response.data?.access_token || "fake token",
           user: response.data || {},
         };
         // Lưu vào sessionStorage nếu muốn
