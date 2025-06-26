@@ -4,8 +4,9 @@ import { Input, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { loginUser } from "../../../services/userService";
-import { toast } from "react-toastify";
+
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserRedux } from "../../../redux/actions/UserAction";
 
 // Simple translations
 const translations = {
@@ -50,7 +51,8 @@ const Login = () => {
   const [theme, setTheme] = useState("light");
   const history = useHistory();
   const t = translations[lang];
-
+  const dispatch = useDispatch();
+  const account = useSelector((state) => state.user.account);
   useEffect(() => {
     document.body.classList.toggle("dark", theme === "dark");
     return () => document.body.classList.remove("dark");
@@ -76,25 +78,12 @@ const Login = () => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await loginUser(values.email, values.password);
-      if (response.data && response.data.EC === 0) {
-        const data = {
-          isAuthenticated: true,
-          token: response.data.data?.token || "fake token", // Lấy token từ response nếu có
-          user: response.data.data || {}, // Lưu thông tin user nếu có
-        };
-        sessionStorage.setItem("account", JSON.stringify(data)); // Lưu vào sessionStorage
-        toast.success("Login success!");
-        history.push("/users");
-      } else {
-        throw new Error(response.data.EM || "Login failed");
-      }
+      await dispatch(loginUserRedux(values.email, values.password));
+      // Không toast ở đây nữa!
+      // if thành công thì chuyển trang
+      history.push("/users");
     } catch (e) {
-      console.error("Error:", e);
-      toast.error(e.message || "Login failed!");
-      if (e.response) {
-        console.error("Server response:", e.response.data);
-      }
+      // Không toast ở đây nữa!
     } finally {
       setSubmitting(false);
     }
@@ -108,13 +97,11 @@ const Login = () => {
     history.push("/register");
   };
 
-  // Hàm logout
-  const handleLogout = () => {
-    sessionStorage.removeItem("account"); // Xóa từ sessionStorage
-    toast.success("Logged out successfully!");
-    history.push("/login");
-  };
-
+  // useEffect(() => {
+  //   if (account && account?.auth === true) {
+  //     history.push("/users");
+  //   }
+  // }, [account]);
   return (
     <div
       className={`min-vh-100 d-flex align-items-center justify-content-center p-3 ${

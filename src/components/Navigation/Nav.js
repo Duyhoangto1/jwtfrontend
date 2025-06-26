@@ -2,24 +2,18 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import "./Nav.scss";
 import { AppContext } from "../../contexts/AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserRedux } from "../../redux/actions/UserAction";
 
 function Nav() {
   const { theme, setTheme, lang, setLang } = useContext(AppContext);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dropdownRef = useRef(null);
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  // Kiểm tra trạng thái đăng nhập từ sessionStorage
-  useEffect(() => {
-    const session = sessionStorage.getItem("account");
-    if (session) {
-      const account = JSON.parse(session);
-      setIsLoggedIn(account.isAuthenticated);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
+  // Lấy trạng thái đăng nhập từ Redux
+  const isLoggedIn = useSelector((state) => state.user.account.isAuthenticated);
 
   // Đóng dropdown khi click ra ngoài
   useEffect(() => {
@@ -40,11 +34,9 @@ function Nav() {
   };
   const handleLogout = () => {
     setShowDropdown(false);
-    sessionStorage.removeItem("account");
-    setIsLoggedIn(false);
-    history.push("/");
+    dispatch(logoutUserRedux());
+    history.push("/login");
   };
-
   const handleProfile = () => {
     setShowDropdown(false);
     history.push("/profile");
@@ -56,14 +48,11 @@ function Nav() {
         <NavLink exact to="/home" activeClassName="active">
           Home
         </NavLink>
-        <NavLink to="/news" activeClassName="active">
-          News
+        <NavLink to="/users" activeClassName="active">
+          Users
         </NavLink>
-        <NavLink to="/contact" activeClassName="active">
-          Contact
-        </NavLink>
-        <NavLink to="/about" activeClassName="active">
-          About
+        <NavLink to="/project" activeClassName="active">
+          Project
         </NavLink>
       </div>
       <div className="nav-right">

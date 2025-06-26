@@ -77,6 +77,7 @@ const Register = () => {
         values.username,
         values.password
       );
+
       toast.success("Register success!");
       setSubmitting(false);
       resetForm();

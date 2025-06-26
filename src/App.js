@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
 import Nav from "./components/Navigation/Nav";
 import AppRouter from "./router/AppRouter";
 import { ToastContainer } from "react-toastify";
-import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { handleRefresh } from "./redux/actions/UserAction";
+
 function App() {
-  const [account, setAccount] = useState({});
+  const account = useSelector((state) => state.user.account);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (session) {
-      setAccount(JSON.parse(session));
+    if (localStorage.getItem("token")) {
+      dispatch(handleRefresh());
     }
-  }, []);
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div className="App app-container">
         <header className="App-header">
-          {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />}
+          {account.isAuthenticated && <Nav />}
           <AppRouter />
         </header>
       </div>
@@ -31,10 +35,9 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-      >
-        {" "}
-      </ToastContainer>
+      />
     </BrowserRouter>
   );
 }
+
 export default App;

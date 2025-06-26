@@ -1,0 +1,194 @@
+// Container chính
+.users-container {
+  padding: 20px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 400px; // Đảm bảo chiều cao tối thiểu
+
+  // Hỗ trợ theme dark
+  .dark & {
+    color: #fff;
+    background-color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  // Style cho Table của antd
+  .ant-table {
+    background-color: transparent;
+
+    // Header
+    .ant-table-thead {
+      > tr {
+        > th {
+          background-color: #f0f2f5;
+          color: #333;
+          font-weight: 600;
+          border-bottom: 2px solid #d9d9d9;
+          padding: 12px;
+          text-align: left;
+
+          .dark & {
+            background-color: #2d2d2d;
+            color: #fff;
+            border-bottom-color: #404040;
+          }
+        }
+      }
+    }
+
+    // Body
+    .ant-table-tbody {
+      > tr {
+        > td {
+          border-bottom: 1px solid #f0f0f0;
+          padding: 12px;
+          vertical-align: middle;
+
+          .dark & {
+            border-bottom-color: #2d2d2d;
+          }
+        }
+
+        &:hover {
+          background-color: #fafafa;
+          cursor: pointer;
+
+          .dark & {
+            background-color: #262626;
+          }
+        }
+      }
+    }
+
+    // Empty Text
+    .ant-table-placeholder {
+      .dark & {
+        background-color: #1a1a1a;
+        color: #ccc;
+      }
+    }
+
+    // Pagination
+    .ant-pagination {
+      margin-top: 16px;
+      text-align: center;
+
+      .dark & {
+        .ant-pagination-item {
+          background-color: #2d2d2d;
+          border-color: #404040;
+          color: #fff;
+
+          &:hover {
+            background-color: #404040;
+          }
+        }
+        .ant-pagination-item-active {
+          background-color: #1890ff;
+          border-color: #1890ff;
+          color: #fff;
+        }
+        .ant-pagination-prev,
+        .ant-pagination-next {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  // Style cho Action Buttons
+  .ant-btn {
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: all 0.3s;
+
+    &.ant-btn-primary {
+      background-color: #1890ff;
+      border-color: #1890ff;
+
+      &:hover {
+        background-color: #40a9ff;
+        border-color: #40a9ff;
+      }
+
+      .dark & {
+        background-color: #1890ff;
+        border-color: #1890ff;
+
+        &:hover {
+          background-color: #40a9ff;
+          border-color: #40a9ff;
+        }
+      }
+    }
+
+    &.ant-btn-danger {
+      background-color: #ff4d4f;
+      border-color: #ff4d4f;
+
+      &:hover {
+        background-color: #ff7875;
+        border-color: #ff7875;
+      }
+
+      .dark & {
+        background-color: #ff4d4f;
+        border-color: #ff4d4f;
+
+        &:hover {
+          background-color: #ff7875;
+          border-color: #ff7875;
+        }
+      }
+    }
+
+    &.ant-btn-default {
+      background-color: #fff;
+      border-color: #d9d9d9;
+      color: #333;
+
+      &:hover {
+        background-color: #f0f0f0;
+        border-color: #d9d9d9;
+      }
+
+      .dark & {
+        background-color: #2d2d2d;
+        border-color: #404040;
+        color: #fff;
+
+        &:hover {
+          background-color: #404040;
+          border-color: #404040;
+        }
+      }
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 14px;
+
+    .ant-table {
+      font-size: 12px;
+
+      .ant-btn {
+        padding: 2px 8px;
+        font-size: 10px;
+      }
+
+      .ant-table-thead > tr > th {
+        padding: 8px;
+      }
+
+      .ant-table-tbody > tr > td {
+        padding: 8px;
+      }
+    }
+  }
+}
