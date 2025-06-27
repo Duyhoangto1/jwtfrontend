@@ -21,7 +21,7 @@ const AppRouter = (props) => (
     <Route path="/login" component={Login} />
     <PrivateRoute path="/users" component={Users} />
     <PrivateRoute path="/project" component={Project} />
-    <PrivateRoute path="/profile" componentr={Profile} />
+    <PrivateRoute path="/profile" component={Profile} />
     <PrivateRoute path="/roles" component={Roles} />
     <Route path="/register" component={Register} />
     <Route path="*">404 not found</Route>

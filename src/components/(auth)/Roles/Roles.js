@@ -12,6 +12,7 @@ import {
   updateRole,
 } from "../../../services/roleService";
 import { getGroup } from "../../../services/groupService";
+import { PlusCircle } from "lucide-react";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -34,15 +35,12 @@ const Roles = () => {
     setIsLoading(true);
     try {
       const response = await getRoles();
-      console.log(
-        "[12:06 AM +07, 27/06/2025] API Response (getRoles):",
-        response
-      );
+      console.log("API Response (getRoles):", response);
 
       setRoles(response.DT);
     } catch (error) {
       message.error("Error fetching roles");
-      console.error("[12:06 AM +07, 27/06/2025] Error in fetchRoles:", error);
+      console.error("Error in fetchRoles:", error);
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +53,7 @@ const Roles = () => {
       setGroups(response.DT);
     } catch (error) {
       message.error("Error fetching groups");
-      console.error("[12:06 AM +07, 27/06/2025] Error in fetchGroups:", error);
+      console.error("Error in fetchGroups:", error);
     }
   };
 
@@ -75,54 +73,38 @@ const Roles = () => {
           values.url,
           values.description
         );
-        if (response.EC === "0") {
-          if (values.groupId) {
-            const assignResponse = await assignRoleToGroup(
-              selectedRole.id,
-              values.groupId
-            );
-            if (assignResponse.EC === "0") {
-              message.success(
-                "Role updated and assigned to group successfully"
-              );
-            } else {
-              message.warning(
-                "Role updated, but failed to assign to group: " +
-                  assignResponse.EM
-              );
-            }
-          } else {
-            message.success("Role updated successfully");
-          }
+
+        if (values.groupId) {
+          const assignResponse = await assignRoleToGroup(
+            selectedRole.id,
+            values.groupId
+          );
+
+          message.success("Role updated and assigned to group successfully");
+
+          message.warning(
+            "Role updated, but failed to assign to group: " + assignResponse.EM
+          );
+
           fetchRoles();
         }
       } else {
         const response = await createRole(values.url, values.description);
-        if (response.EC === "0") {
-          if (values.groupId) {
-            const assignResponse = await assignRoleToGroup(
-              response.DT.id,
-              values.groupId
-            );
-            if (assignResponse.EC === "0") {
-              message.success(
-                "Role created and assigned to group successfully"
-              );
-            } else {
-              message.warning(
-                "Role created, but failed to assign to group: " +
-                  assignResponse.EM
-              );
-            }
-          } else {
-            message.success("Role created successfully");
-          }
+
+        if (values.groupId) {
+          const assignResponse = await assignRoleToGroup(
+            response.DT.id,
+            values.groupId
+          );
+
+          message.success("Role created and assigned to group successfully");
+
           fetchRoles();
         }
       }
     } catch (error) {
       message.error("Failed to save role");
-      console.error("[12:06 AM +07, 27/06/2025] Error:", error);
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
       setIsModalVisible(false);
@@ -139,15 +121,12 @@ const Roles = () => {
     try {
       setIsLoading(true);
       const response = await deleteRole(id);
-      if (response.EC === "0") {
-        message.success("Role deleted successfully");
-        fetchRoles();
-      } else {
-        message.error(response.EM || "Failed to delete role");
-      }
+
+      message.success("Role deleted successfully");
+      fetchRoles();
     } catch (error) {
       message.error("Failed to delete role");
-      console.error("[12:06 AM +07, 27/06/2025] Error:", error);
+      console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -202,6 +181,7 @@ const Roles = () => {
         onClick={() => showModal()}
         style={{ marginBottom: 16 }}
       >
+        {<PlusCircle />}
         Add Role
       </Button>
       {isLoading ? (
